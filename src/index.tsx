@@ -7,7 +7,7 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const CatacombsVault =
+const CatacombsVault: ICatacombsVault =
   Platform.OS === 'ios'
     ? new Error('This is only available on Android')
     : NativeModules.CatacombsVault
@@ -21,4 +21,4 @@ const CatacombsVault =
         }
       );
 
-export default CatacombsVault as ICatacombsVault;
+export default CatacombsVault;
