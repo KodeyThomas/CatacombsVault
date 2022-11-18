@@ -124,9 +124,17 @@ repositories {
 
 
 dependencies {
-    //noinspection GradleDynamicVersion
-  implementation "com.facebook.react:react-native:+"
-// From node_modules
+  // noinspection GradleDynamicVersion
+  api 'com.facebook.react:react-native:+'
+
+  implementation "androidx.security:security-crypto:1.1.0-alpha03"
+
+  testImplementation 'junit:junit:4.13.1'
+
+  androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+  //noinspection GradleDependency
+  androidTestImplementation 'org.mockito:mockito-android:3.4.6'
+  androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }
 
 if (isNewArchitectureEnabled()) {

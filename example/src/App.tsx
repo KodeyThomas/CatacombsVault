@@ -1,18 +1,26 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'catacombs-vault';
+import CatacombsVault from 'catacombs-vault';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [value, setValue] = React.useState<string | undefined>(undefined);
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    CatacombsVault.initialize('testVaultName').then(() => {
+      CatacombsVault.set('testKey', 'testValue').then(() => {
+        console.log('Set key: ', 'testKey');
+        CatacombsVault.get<string>('testKey').then((result) => {
+          console.log('Got value: ' + result);
+          setValue(result);
+        });
+      });
+    });
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>{value}</Text>
     </View>
   );
 }

@@ -1,6 +1,8 @@
 # catacombs-vault
 
-A Secure way to persist any secrets
+A Secure way to persist any secrets in your application.
+
+This package is an implementation of the `EncryptedSharedPreferences` class on Android [Link to the class documentation](https://developer.android.com/reference/androidx/security/crypto/EncryptedSharedPreferences)
 
 ## Installation
 
@@ -11,21 +13,12 @@ npm install catacombs-vault
 ## Usage
 
 ```js
-import { multiply } from 'catacombs-vault';
+import CatacombsVault from 'catacombs-vault';
 
 // ...
 
-const result = await multiply(3, 7);
+await CatacombsVault.init(NAME_OF_VAULT);
+
+await CatacombsVault.set('key', 'value');
+await CatacombsVault.get('key'); // 'value'
 ```
-
-## Contributing
-
-See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)

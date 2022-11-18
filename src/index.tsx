@@ -1,4 +1,5 @@
 import { NativeModules, Platform } from 'react-native';
+import type { ICatacombsVault } from './types';
 
 const LINKING_ERROR =
   `The package 'catacombs-vault' doesn't seem to be linked. Make sure: \n\n` +
@@ -6,17 +7,18 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
-const CatacombsVault = NativeModules.CatacombsVault
-  ? NativeModules.CatacombsVault
-  : new Proxy(
-      {},
-      {
-        get() {
-          throw new Error(LINKING_ERROR);
-        },
-      }
-    );
+const CatacombsVault =
+  Platform.OS === 'ios'
+    ? new Error('This is only available on Android')
+    : NativeModules.CatacombsVault
+    ? NativeModules.CatacombsVault
+    : new Proxy(
+        {},
+        {
+          get() {
+            throw new Error(LINKING_ERROR);
+          },
+        }
+      );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return CatacombsVault.multiply(a, b);
-}
+export default CatacombsVault as ICatacombsVault;

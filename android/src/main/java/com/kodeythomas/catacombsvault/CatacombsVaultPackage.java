@@ -1,4 +1,4 @@
-package com.catacombsvault;
+package com.kodeythomas.catacombsvault;
 
 import androidx.annotation.NonNull;
 
