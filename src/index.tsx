@@ -1,24 +1,34 @@
-import { NativeModules, Platform } from 'react-native';
-import type { ICatacombsVault } from './types';
+import { NativeModules } from 'react-native';
 
-const LINKING_ERROR =
-  `The package 'catacombs-vault' doesn't seem to be linked. Make sure: \n\n` +
-  Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n';
+const { CatacombsVault } = NativeModules.CatacombsVault;
 
-const CatacombsVault: ICatacombsVault =
-  Platform.OS === 'ios'
-    ? new Error('This is only available on Android')
-    : NativeModules.CatacombsVault
-    ? NativeModules.CatacombsVault
-    : new Proxy(
-        {},
-        {
-          get() {
-            throw new Error(LINKING_ERROR);
-          },
-        }
-      );
+interface ICatacombsVault {
+  /**
+   * Initializes the vault. This must be called before any other methods.
+   *
+   * @param {string} vaultName The name of the vault to use.
+   */
+  initialize(vaultName: string): Promise<boolean>;
+  /**
+   * Stores a value in the vault.
+   * @param key The key to store the value under.
+   * @param value The value to store.
+   */
+  set<T>(key: string, value: T): Promise<T>;
+  /**
+   * Retrieves a value from the vault.
+   * @param key The key to retrieve the value for.
+   */
+  get<T>(key: string): Promise<T>;
+  /**
+   * Deletes a value from the vault.
+   * @param key The key to remove from the vault.
+   */
+  delete(key: string): Promise<boolean>;
+  /**
+   * Deletes all values from the vault.
+   */
+  deleteAll(): Promise<boolean>;
+}
 
-export { CatacombsVault };
+export default CatacombsVault as ICatacombsVault;
