@@ -21,4 +21,4 @@ const CatacombsVault: ICatacombsVault =
         }
       );
 
-export default CatacombsVault;
+export { CatacombsVault };
