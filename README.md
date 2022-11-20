@@ -17,7 +17,7 @@ import CatacombsVault from 'catacombs-vault';
 
 // ...
 
-await CatacombsVault.init(NAME_OF_VAULT);
+await CatacombsVault.initialize(NAME_OF_VAULT);
 
 await CatacombsVault.set('key', 'value');
 await CatacombsVault.get('key'); // 'value'
